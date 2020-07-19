@@ -1,0 +1,635 @@
+\documentclass[12pt,abstract]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+\title{Theory of Inhomogeneous Short Range Order and Calphad Modeling. }
+\author{Edward Kremer \\ \\ \textit{email: edk137@gmail.com}}
+
+\subtitle{Part 6. Order--Disorder Transformations in Alloys}
+
+
+
+\date{July 2020}
+
+
+%%\usepackage{natbib}
+\usepackage[sort&compress,numbers]{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{siunitx} % Required for alignment
+\usepackage{chemformula}
+\let\ce\ch
+\sisetup{
+  round-mode          = places, % Rounds numbers
+  round-precision     = 3, % to 2 places
+}
+\hyphenation{hy-po-the-sis}
+\hyphenation{trans-pa-rent}
+\hyphenation{ge-ne-ra-li-za-tion}
+
+%\graphicspath{ {images/} }
+%\bibliographystyle{plain}
+%\linespread{1.6}
+%\setlength{\parindent}{8em}
+%\setlength{\parskip}{1em}  %paragraph separation
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+Formalism of Theory of Inhomogeneous Short Range Order (TISR) is extended to describe Order--Disorder transformations in solid alloys.
+The result is a natural  integration of Short and Long Range Order description in the framework of the same theory.
+
+The equations of Cluster Site Approximation (CSA) are deduced directly from the equations of  TISR.
+Formalism and interpretation of CSA are  simplified and clarified. 
+
+\textbf{Keywords:} Phase Diagram calculation; Computational Thermodynamics;  Thermodynamic Modeling; Multicomponent systems; Long Range Order; Superlattices; Quasichemical Theory
+
+\end{abstract}
+
+
+
+\section{Introduction}
+
+In this paper we will consider crystalline solids that exhibit Order--Disorder  transformation at low temperatures  \cite{porter2009}, when atoms can be redistributed over several interlaced sublattices.
+
+This scenario creates additional difficulties for statistical thermodynamics that is obligated now to take in the account a new dynamic degree of freedom that  describes how different sublattices are being  populated.
+
+The most important method to handle this task is the Cluster Variation Method (CVM) \cite{moran2012} that allows to take in the account both Short and Long Range Orders and their interaction. 
+
+Unfortunately, this method is not in a great request because of its complexity (and other reasons  discussed in \cite{TISR_p1} and elsewhere).
+
+As result, the most popular today are multiple methods that totally neglect Short Range Order (SRO).
+The list  includes the Bragg-Williams Approximation \cite{krivoglaz1964}, the Method of Static Concentration Waves \cite{khachaturyan2013}, and the Compound Energy Formalism \cite{hanslukas2007}.
+
+The need for SRO to be included in the formalism describing the Order--Disorder transformations is a long-standing problem, the critical importance of which has been recognized and discussed by many authors \cite{Sundman2018, gusev2013, krivoglaz1964, banerjee2010}.
+
+A few attempts to \textit{simulate} the SRO within the  Compound Energy Formalism \cite{abe2003, liu2019, Sundman2018} by adding a hard-coded approximation for SRO  cannot be considered  a good solution.
+
+
+This approach does not provide a link between the local order as a physical phenomenon and the patch introduced, and is therefore completely formal. 
+The dynamic nature of SRO is totally lost with this approach.
+
+Technical difficulties associated with such approach are discussed in \cite{Sundman2018}.
+
+The main purpose of this paper is to show that  Theory of Inhomogeneous Short Range Order (TISR) \cite{TISR_p1} can be easily applied for description of Order--Disorder transformations.
+
+The result is a relatively simple theory where the natural interaction between SRO and LRO exists on the basic level.
+
+Similar result was introduced many years ago in \cite{Yang1945, Yang1947, li1949quasi}  (though in a very technically tricky form) and then was extended and renamed as Cluster Site Approximation (CSA)  in \cite{Oates1999, zhang_oates2001}.
+
+Unfortunately, CSA's formalism has proven to be complex and confusing in many ways, hindering understanding and widespread use of the theory.
+
+The version of TISR described in the current article accurately reproduces the equations of CSA, but in a much simpler and more logically consistent form.
+
+Some general conclusions made inside CSA cause questions and must be critically discussed.
+
+
+
+
+\section{Order--Disorder Transformations}
+
+In this section we will consider crystalline solids that exhibit  Order--Disorder  transformations at low temperatures  \cite{hanslukas2007}, when atoms can be redistributed over several interlaced sublattices.
+
+As could be expected, mathematical description requires some specific. 
+As a working example, we will focus on a Face Centered Cubical (FCC)  lattice \cite{glazer2013} while keeping the notations as general as possible.
+
+A classical example of ordering in FCC lattice is the \ce{Au-Cu} alloy \cite{Cao2007} that is a very good investigated binary system.
+
+It is commonly known \cite{glazer2013} that FCC lattice can be presented as  association of four identical interlaced sublattices where every knot has no nearest neighbors in the same sublattice.
+This property defines all the peculiarities of the ordering process.
+
+It is convenient for our consideration to distinguish  these sublattices  by an index (which, we assume, varies from one to four).
+
+It is possible that under  condition of thermodynamic equilibrium the compositions of some sublattices will coincide, but it is still useful to treat them as distinct, for generality.
+
+
+
+
+Natural in our case selection of tetrahedron as the basic cell is resulting in identifying four sub-cells inside every cell.
+Every sub-cell consists of just one knot and we will assign an index to every sub-cell to be identical with the index of the corresponding sublattice.
+
+
+The configuration of the system can be described as follows.
+
+The lattice having $N = N_1 + N_2$ knots is divided into  $M = N / k$ cells containing every $k = 4$ knots.
+
+We need four variables ($k_1, k_2, k_3, k_4$) to specify the  count of knots in each  sub-cell:
+
+
+\begin{equation} \label{k3}
+    k = k_1 + k_2 + k_3 + k_4
+\end{equation}
+
+It means  that the total number of knots in the sublattice $m$  is 
+\begin{equation} \label{kiM}
+N^{(m)} = k_m M = k_m N / k, \quad (m =1, 2, 3, 4)
+\end{equation}
+
+
+To describe a cell we must specify content of every sub-cell.
+We will use for this end the vector notation:
+
+\[
+\mathbf{i} = (i_1, i_2, i_3, i_4)
+\] 
+
+Accordingly, $M_{\mathbf{i} \alpha}$ is the number of cells having every:
+
+$i_1$ atoms of type $a$ in  sub-cell 1;
+
+$i_2$ atoms of type $a$ in  sub-cell 2;
+
+$i_3$ atoms of type $a$ in  sub-cell 3;
+
+$i_4$ atoms of type $a$ in  sub-cell 4;
+
+index $\alpha$  numbers all possible configurations for the cell of specified composition:
+
+ 
+\begin{equation} \label{alpha3}
+\alpha = 1, \dots \binom{k_1}{i_1} \binom{k_2}{i_2} \binom{k_3}{i_3} \binom{k_4}{i_4}
+\end{equation}
+
+In the following text the upper index indicates the sublattice, while the lower index --  the  component's number.
+
+In  particular, the total number $N_1^{(m)} $ of atoms $a$ belonging to the  sublattice $m$ is:
+
+\begin{equation} \label{N113}
+N_1^{(m)} = \sum_{\mathbf{i} \alpha} i_m M_{\mathbf{i} \alpha}
+\end{equation}
+
+with the total number of atoms $a$ in the system:
+\begin{equation} \label{N13}
+N_1 = \sum_{m=1}^4 N_1^{(m)}  = \sum_{\mathbf{i} \alpha} (i_1 + i_2 + i_3 + i_4) M_{\mathbf{i} \alpha}
+\end{equation}
+
+
+Concentration of atoms $a$  (calculated for every sublattice separately) is:
+\begin{equation} \label{y12}
+y_1^{(m)} = \frac{N_1^{(m)}}{N^{(m)}} = \sum_{\mathbf{i} \alpha} \frac{i_m}{k_m} p_{\mathbf{i} \alpha}
+\end{equation}
+where
+\begin{equation} \label{pM3}
+\begin{split}
+ p_{\mathbf{i}\alpha} & =  M_{\mathbf{i} \alpha} / M\\
+1 &=  \sum_{\mathbf{i} \alpha} p_{\mathbf{i} \alpha} 
+\end{split}
+\end{equation}
+
+The just introduced  local per-sublattice concentrations are directly related to the total alloy composition:
+\begin{equation} \label{x13}
+x_1 = \frac{N_1}{N} = \sum_{m=1}^4 \frac{k_m}{k} y_1^{(m)} 
+\end{equation}
+
+Combinatorial factor $K$ of the system  is \cite{TISR_p1}:
+
+\begin{equation} \label{config_final}
+K =K_0 * \left( \frac{K_1}{K_1^\infty} \right)^\gamma 
+\end{equation}
+where this time
+\begin{equation} \label{K03}
+\begin{split}
+\ln K_1^\infty &= \ln K_0   = \ln \left( \prod_{m = 1}^4  \frac{N^{(m)}!}{N_1^{(m)}! N_2^{(m)}!}  \right)\\
+\\
+& = -  \sum_{m = 1}^4  N^{(m)} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+\end{split}
+\end{equation}
+and
+\begin{equation} \label{K13}
+\ln K_1 = \ln \frac{M!}{\prod\limits_{\mathbf{i}  \alpha} ( M_{\mathbf{i}  \alpha})!} 
+= - M \sum_{\mathbf{i}  \alpha} p_{\mathbf{i}  \alpha} \ln p_{\mathbf{i}  \alpha}
+\end{equation}
+
+The structural parameter $\gamma$,  taken  in the quasichemical approximation \cite{TISR_p2}, is
+\begin{equation} \label{gamma}
+\gamma = \frac{z N}{2 M m} = \frac{z k}{2 m}
+\end{equation}
+where $m$ is the number of interatomic links inside one cell.
+
+Thanks to the high symmetry of the task being considered, we can present the energy of the entire system in the standard  \cite{TISR_p1} form
+
+
+ \[
+\beta \sum_{\mathbf{i}  \alpha}U_{\mathbf{i}  \alpha} M_{\mathbf{i}  \alpha} 
+\]
+where proportionality coefficient $\beta$ is nothing but the ratio of total number of links in the system ($z N / 2$) to the number of links located inside cells.
+In the quasichemical approximation $\beta = \gamma$.
+
+
+
+
+It is important that this  expression still is linear in respect to $M_{\mathbf{i}  \alpha} $. 
+This fact is responsible  \cite{TISR_p1} for the critically significant simplifications of formalism.
+
+The configurational entropy of system gets maximum when all four sublattices have the same composition.
+The  Order--Disorder  transition occurs when the interatomic interaction is strong enough to spontaneously destroy  the  equality of atomic concentrations.
+
+Accordingly, the variables  $y_1^{(m)}$ receive dynamically defined values (that  can still be uniquely expressed by  the formula (\ref{y12})).
+
+The free energy of the system can be written as
+
+\begin{equation} \label{free_energy30}
+\begin{split}
+& F(N_1, N_2, \theta; p_{\mathbf{i}  \alpha},  y_1^{(m)}, \lambda, \lambda_0, \lambda_m) = \beta M \sum_{\mathbf{i}  \alpha}U_{\mathbf{i}  \alpha} p_{\mathbf{i}  \alpha}  \\
+&+ \theta(1- \gamma) \sum_{m = 1}^4  N^{(m)} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+\\
+&+ \theta \gamma M \sum_{\mathbf{i}  \alpha} p_{\mathbf{i}  \alpha} \ln p_{\mathbf{i}  \alpha}\\
+&+ \sum_{m=1}^4 \lambda_m N \left(y_1^{(m)} -  \sum_{\mathbf{i} \alpha} \frac{i_m}{k_m} p_{\mathbf{i} \alpha} \right) 
++ \lambda N \left(1- \sum_{\mathbf{i} \alpha}p_{\mathbf{i} \alpha}   \right)\\ 
+\\
+&+ \lambda_0 N \left(x_1 - \sum_{m=1}^4 \frac{k_m}{k} y_1^{(m)} \right)
+\end{split}
+\end{equation}
+
+
+The basic equations of theory can be  obtained  by minimization of $F$ with respect to $ p_{\mathbf{i}  \alpha},  y_1^{(m)}$:
+\begin{equation} \label{basic_equation3}
+    \frac{\partial F}{\partial p_{\mathbf{i} \alpha}} = \beta M U_{\mathbf{i}  \alpha}+ M \theta \gamma \ln p_{\mathbf{i} \alpha} 
+- N \sum_m \frac{i_m}{k_m} \lambda_m - N \lambda = 0  
+\end{equation} 
+
+\begin{equation} \label{basic_equation3b}
+\frac{\partial F}{\partial y_1^{(m)}}  =
+\theta(1- \gamma) N^{(m)} ( \ln y_1^{(m)} - \ln y_2^{(m)}) + \lambda_m N - \lambda_0 N \frac{k_m}{k} = 0
+\end{equation} 
+
+The first of these equations can be immediately solved in usual  \cite{TISR_p1} form:
+\begin{equation} \label{pia3}
+    p_{\mathbf{i} \alpha} = \exp \left(- \frac{ \beta U_{\mathbf{i}  \alpha} }{\theta\gamma }\right) 
+b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4} b
+\end{equation}
+where $b$ and $b_m$ are defined through
+\begin{equation} \label{bb}
+\begin{split}
+b_m & = \exp \left( \frac{\lambda_m}{\theta \gamma} \frac{k}{k_m} \right)\\
+\\
+b & =  \exp \left( \frac{\lambda k}{\theta \gamma} \right)
+\end{split}
+\end{equation}
+
+As always, we introduce now a few additional variables that  help to present the equilibrium equations in a more easily traceable form:
+\begin{equation} \label{pi3}
+    p_{\mathbf{i}} = \sum_\alpha p_{\mathbf{i} \alpha} = W_{\mathbf{i}} b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4} b
+\end{equation}
+where
+\begin{equation} \label{Wi3}
+    W_{\mathbf{i}} = \sum_\alpha  \exp \left(- \frac{ \beta U_{\mathbf{i}  \alpha} }{\theta\gamma }\right) 
+\end{equation}
+so the equations (\ref{y12}) -- (\ref{pM3}) can be rewritten as:
+
+\begin{equation} \label{W13c}
+\begin{split}
+y_1^{(m)} &= \sum_{\mathbf{i} } \frac{i_m}{k_m} W_{\mathbf{i}}   b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4} b\\
+b &=  \left( \sum_{\mathbf{i} } W_{\mathbf{i} }   b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4}\right) ^{-1}
+\end{split}
+\end{equation}
+
+We can totally exclude $p_{\mathbf{i}  \alpha}$ from the expression (\ref{free_energy30}) for the free energy by using the  equation (\ref{pia3}).
+
+Even better, we can achieve the same result by 
+multiplying the middle part of the equation (\ref{basic_equation3}) by $p_{\mathbf{i} \alpha}$ and extracting the result (that is still equal to zero) from the expression (\ref{free_energy30}):
+\begin{equation} \label{free_energy31}
+\begin{split}
+&F(N_1, N_2, \theta; b_m)= \\
+& \theta(1- \gamma) \sum_{m = 1}^4  N^{(m)} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+&+ \sum_{m=1}^4 \lambda_m Ny_1^{(m)} 
++ \lambda N \\
+&+ \lambda_0 N \left(x_1 - \sum_{m=1}^4 \frac{k_m}{k} y_1^{(m)} \right)
+\\
+\end{split}
+\end{equation}
+where all dynamic variables on the right site are assumed now to be expressed through $b_m$ using (\ref{bb}) and (\ref{W13c}).
+
+The peculiarity of the expression (\ref{free_energy30}) for the free energy is the fact that it can be divided into the sum of two parts, where the first part depends only on  $p_{\mathbf{i} \alpha}$, and the other part depends only on $y_1^{(m)}$.
+As a result, the equilibrium equations (\ref{basic_equation3}) and (\ref{basic_equation3b}) can be obtained  and solved independently, in any order.
+Even more, the equation (\ref{basic_equation3b}) can be produced from the reduced expression (\ref{free_energy31}) for the free energy.
+
+\section{Cluster Site Approximation}
+
+If we neglect the last line on the right side of equation (\ref{free_energy31}) and use the equations (\ref{bb}) to replace 
+$\lambda_m$ and $\lambda$ by $b_m$ and $b$, respectively, we will reproduce precisely (given the difference in notations) the final expression for the free energy from \cite{Oates1999} and other  articles associated with the Cluster Site Approximation \cite{Oates1999, zhang_oates2001, Yang1945, Yang1947, li1949quasi}:
+
+\begin{equation}\label{free_energy41}
+\begin{split}
+&F(N_1, N_2, \theta; b_m)= \\
+& N \theta(1- \gamma) \sum_{m = 1}^4  \frac{k_m}{k} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+&+ \frac{N \theta}{k} \gamma ( \sum_{m=1}^4 k_m  y_1^{(m)} \ln b_m + \ln b)
+\end{split}
+\end{equation}
+
+The omitted part of the  equation (\ref{free_energy31}) corresponds to the requirement that the total concentration of atoms $a$ in the system is $x_1$ -- this requirement is not enforced in the cited articles.
+
+As mentioned, the free energy expression (\ref{free_energy41}) is identical to the corresponding expression from \cite{Oates1999} (equation (5)) .
+To see it we can use the following correspondence list between notations  used in the current article and in \cite{Oates1999}:
+
+\begin{table} [h]
+\begin{center}
+\caption{Notation  correspondence between \cite{Oates1999} and the current article\\
+ }
+\label{tab:table1}
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{This text} &  \textbf{\cite{Oates1999}} & \textbf{Meaning} \\
+			\hline
+k & n & count of atoms in a cell\\
+m & p & count of interatomic links in a cell\\
+$k_m$ & 1 & count of atoms in the sub-cell $m$\\
+$y_1^{(m)}$ & $y_A^m$ & concentration of atoms $a$ in sublattice $m$ \\
+$k_m / k$ & $f_m$ &  sublattice fraction\\
+$\gamma= zk / 2m$ & $zn / 2 p$ & structural parameter of theory\\
+$\ln b_m = \lambda_m k / \theta \gamma k_m$ & $\mu_A^m$ & Lagrangian multiplier \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+Based on these relationships, we can  evaluate now the most complex  part of the expression used by CSA, namely, the one that corresponds to $b$ (defined by (\ref{W13c})).
+
+First, it is easy to see that in (\ref{Wi3}) the sum on the right side contains only one member since the set $(i_1, i_2, i_3, i_4)$ uniquely defines atom configuration in a tetrahedron:
+\[
+    W_{\mathbf{i}} =  \exp \left(- \frac{ \beta U_{\mathbf{i}  1} }{\theta\gamma }\right) 
+\]
+
+The quasichemical approximation is characterized by the condition $\beta = \gamma$, so we have:
+\begin{equation} \label{xi}
+\begin{split}
+ \frac{1}{b}& =  \sum_{\mathbf{i} } W_{\mathbf{i} }   b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4} =
+\sum_{\mathbf{i} }  \exp \left(- \frac{  U_{\mathbf{i}  1} }{\theta }\right) b_1^{i_1} b_2^{i_2} b_3^{i_3} b_4^{i_4} \\
+&= \sum_{\mathbf{i} }  \exp \left( i_1 \mu_A^1 + i_2 \mu_A^2 +i_3 \mu_A^3 +i_4 \mu_A^4 - \frac{  U_{\mathbf{i}  1} }{\theta }\right) 
+\end{split}
+\end{equation}
+
+The corresponding expression for $\Xi$ is written carelessly in \cite{Oates1999}, with several errors converting it meaningless, but we can still refer to several other sources \cite{oates1996,  oates2007} that maintain the necessary accuracy in this formula.
+The comparison confirms that indeed  $\Xi = 1/b$.
+
+Taking in the account this fact and the mapping presented in the table, we can confirm the equivalence of two expressions for the free energy.
+
+It is important to  realize  that even if the final formulas provided by two theories are identical, the underlying logic and interpretation are quite different.
+
+Method used by TISR is based exclusively on the statistical-thermodynamic approach. 
+Structural elements (cells) introduced by TISR to describe the SRO \cite{TISR_p1} are used  to express the  energy and the combinatorics of the system -- the two basic units necessary  to  construct an expression for the free energy. 
+Solutions of equations derived by minimization the free energy expression can be presented either  in parametric or in   numeric form and constitute the output of the theory.
+
+In particular, the  equation (\ref{pia3}) is part of this output.
+
+CSA uses other approach.
+It is based on an \textit{ansatz} that is enforced into the theory under the assumption of similarity  of clusters behavior and behavior of gaseous molecules  \cite{Yang1945, Yang1947, li1949quasi}. 
+The equation (\ref{pia3}), that was directly \textit{derived} using TISR,  is only \textit{postulated} inside CSA approach.
+
+It comes finally to the same results as TISR but simultaneously  turns the theory into a very complex and difficult to trace method. 
+
+Questionable steps in formalism introduce some difficulties in the interpretation of theory.
+
+We had seen above how the substitution of the right side of (\ref{pia3}) into the  expression (\ref{free_energy30}) for the free energy translates the latter to a reduced form (\ref{free_energy31}).
+
+This simple operation has inside CSA \cite{oates2007, zereg2009, Bourki2010} a strange  name "Fowler-Yang-Li transformation".
+
+This unusual title is given, as follows from the context, because this "transformation" allows to express the  probability of cells (clusters) through the atom concentration.
+
+We should however raise an objection to such terminology, because  this is exactly what is expected from the solution of any statistical-thermodynamic problem: to express the  values of internal dynamic variables (such as probabilities of local configurations, changes in the distribution of atoms, correlation functions, etc.) through the macroscopic parameters of the system -- temperature and concentrations (and, may be, pressure).
+
+The only specifics of CSA formalism is the fact that the named dependency is presented in CSA in an \textit{explicit} form.
+
+Some \textit{explanation} of this confusing nomenclature is the exceptionally tricky method the expression (\ref{pia3}) was introduced into CSA.
+As mentioned above, this "transformation" was not created as solution of equation of  equilibrium equation (as should be), but was  enforced into the formalism as some ansatz.
+
+In any case, this "transformation" looks as a mystical component that creates an  additional level of confusion inside CSA.
+
+Even more strange in this respect looks the attempt to apply "Fowler-Yang-Li transformation" inside the Cluster Variation Method \cite{moran2012}, where the statement (\ref{pia3})  simply does not have place. 
+Result is certainly disappointing  \cite{oates2007}.
+
+A significant improvement into CSA was introduced in  \cite{Oates1999} as an attempt to resolve difficulties with applications of theory.
+In order to reproduce the results of  Monte-Carlo experiments  \cite{Ferreira1998} Oates \cite{Oates1999} decided to use some of internal  parameters of theory as adjustable.
+
+Surprisingly, this purely formal experiment should be considered very successful.
+
+As shown in \cite{TISR_p4}, $\gamma$ is a structural element of TISR defining the configurational entropy of the system.
+Only the right choice of $\gamma$ allows to reproduce the correct critical temperature of transformation and significantly improve the accuracy of calculations.
+
+This parameter exists also inside CSA (may be, under other name).
+
+Oates modified this parameter to bring in the consistence the results of  CSA calculations and Monte-Carlo experiments  \cite{Ferreira1998}. 
+
+The resulting value was estimated as $\gamma \approx 4.88$ (rather than quasichemical value 4.0).
+
+As clear from the above, this number is the only justified value for $\gamma$ if we are interested to consider  thermodynamics of the FCC lattice nearly the critical temperatures.
+Unfortunately it was decided to continue to treat  $\gamma$  in the future just as a dummy adjustable parameter. 
+
+As result of this approach, the structural parameter $\gamma$ had been varied in \cite{oates1996, Oates1999, oates2007, zhu2010} in the region from 4 to  7 totally neglecting the real meaning of this  quantity.
+
+Using $\gamma$ as  a dummy adjustable parameter  may help to bring theoretical curve closer  to the experimental data  but  the physical meaning of theory will be  dimmed, while the 
+ physically significant quantities will be shifted away from the correct values.
+
+It looks that the importance of correct value for $\gamma$ was never clearly recognized.
+
+
+At the end of this section we will discuss one more confusing statement that is being repeated inside CSA multiple times 
+\cite{oates1996, Oates1999, oates2007, zhu2010}.
+
+It is the  statement that "...it is assumed that the clusters are independent, i.e., share corners but do not share edges or faces" 
+
+Origin and justification of this statement are unknown and it is the one which we can hardly agree with.
+
+When considering cluster permutations we can speak about corner \textit{overlapping} but not sharing.
+Sharing assumes that the same atom at the corner belongs to several clusters at the same time, but it is certainly not the case.
+
+It is why inside of the classical quasichemical approach the  ”non-interference hypothesis” \cite{GUGGENHEIM1952} (that totally neglects this overlapping) plays critical role.
+This simplification certainly introduces some error, but it is just the nature of the quasichemical theory -- approximate method that just provides surprisingly good results.
+
+It may be mentioned here how the TISR approach \cite{TISR_p1} is different.
+
+We consider an ensemble of cells (without any common elements!) and take in the account how the interaction \textit{inside} cells changes the number of possible configurations.
+
+Then we assume that all remaining interparticle links located outside of ensemble must change the number of configurations in the same proportion.
+
+In this approach "sharing of corners" or even "overlapping of corners" have no sense at all.
+
+
+\section{Ordering in FCC system}
+
+Direct investigation of 4--dimensional equation (\ref{basic_equation3b}) that has multiple solutions describing  different ordered and unordered phases is quite involving, but this was already performed inside  cited above articles associated with CSA.
+It has no sense to repeat these calculations here.
+We want to limit this text by considering only one ordered phase as illustration how the use of the parametric presentation of physical quantities developed within TISR helps the investigation.
+
+According \cite{Cao2007}  the ordering in  the \ce{Au-Cu} system reveals only two distinct values among four $y_1^{(m)}$ concentrations.
+
+It means that the four existing sublattices are combined with each other, creating a final two-sublattices kind superstructure.
+
+Four sublattices can combine in proportion 1:3 or 2:2 producing the three good known inside  the \ce{Au-Cu} system superstructures.
+
+To show how calculations can be brought to the next level, we will consider superstructure \ce{Cu3Au} that corresponds to the case
+\begin{equation} \label{k1k2}
+\begin{split}
+	k_1 &= 3\\
+	k_2 &= 1
+\end{split}
+\end{equation}
+
+The formalism developed in the  section 2 can be easily adopted for the specified case. 
+Formally it is enough to assume in (\ref{free_energy30}):
+\begin{equation} 
+\lambda_3 = \lambda_4 = \lambda_1
+\end{equation}
+and redefine properly $y_1^{(1)}$ as an average concentration taken over three merged sublattices.
+
+
+Omitting the simple intermediate steps we can write down the resulting expression for the free energy (that could be actually written quite independently):
+\begin{equation} \label{free_energy40}
+\begin{split}
+F &= \beta M \sum_{\mathbf{i}  \alpha}U_{\mathbf{i}  \alpha} p_{\mathbf{i}  \alpha}  \\
+&+ \theta(1- \gamma) \sum_{m = 1}^2  N^{(m)} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+\\
+&+ \theta \gamma M \sum_{\mathbf{i}  \alpha} p_{\mathbf{i}  \alpha} \ln p_{\mathbf{i}  \alpha}\\
+&+ \sum_{m=1}^2 \lambda_m N \left(y_1^{(m)} -  \sum_{\mathbf{i} \alpha} \frac{i_m}{k_m} p_{\mathbf{i} \alpha} \right) 
++ \lambda N \left(1- \sum_{\mathbf{i} \alpha}p_{\mathbf{i} \alpha}   \right)\\ 
+\\
+&+ \lambda_0 N \left(x_1 - \sum_{m=1}^2 \frac{k_m}{k} y_1^{(m)} \right)
+\end{split}
+\end{equation}
+and the following from here equation for $p_{\mathbf{i}  \alpha}$, that formally looks precisely as the equation
+(\ref{basic_equation3}) (but $m$ takes only two values 1 and 2).
+
+Solution of this equation provides expression for the cell's probabilities:
+\begin{equation} \label{pia4}
+    p_{\mathbf{i} \alpha} = \exp \left(- \frac{ \beta U_{\mathbf{i}  \alpha} }{\theta\gamma }\right) 
+b_1^{i_1} b_2^{i_2}  b
+\end{equation}
+where
+\begin{equation} \label{bb5}
+\begin{split}
+b_m & = \exp \left( \frac{\lambda_m}{\theta \gamma} \frac{k}{k_m} \right)\\
+\\
+b & =  \exp \left( \frac{\lambda k}{\theta \gamma} \right)
+\end{split}
+\end{equation}
+
+The equation defining the sublattices population also looks unchanged:
+
+\begin{equation} \label{dFdy}
+\frac{\partial F}{\partial y_1^{(m)}}  =
+\theta(1- \gamma) N^{(m)} ( \ln y_1^{(m)} - \ln y_2^{(m)}) + \lambda_m N - \lambda_0 N \frac{k_m}{k} = 0
+\end{equation} 
+
+The final free energy expression (\ref{free_energy31}) looks also almost unchanged:
+\begin{equation} \label{free_energy42}
+\begin{split}
+&F(N_1, N_2, \theta; b_1, b_2 )=  \\
+& \theta(1- \gamma) \sum_{m = 1}^2  N^{(m)} ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+&+ \sum_{m=1}^2 \lambda_m Ny_1^{(m)} + \lambda N \\
+&+ \lambda_0 N \left(x_1 - \sum_{m=1}^2 \frac{k_m}{k} y_1^{(m)} \right)\\
+&=  \theta(1- \gamma) \sum_{m = 1}^2 \frac{k_m}{k} N  ( y_1^{(m)} \ln y_1^{(m)} + y_2^{(m)} \ln y_2^{(m)} )\\
+&+ \sum_{m=1}^2 N \theta \gamma \frac{k_m}{k} y_1^{(m)}\ln b_m + N \theta \gamma \frac{1}{k} \ln b\\
+&+ \lambda_0 N \left(x_1 - \sum_{m=1}^2 \frac{k_m}{k} y_1^{(m)} \right)
+\end{split}
+\end{equation}
+
+In reality, of course, $k_1$ and $k_2$ (that define the upper limits for variables $i_1$ and $i_2$) are changed and it has to be taken in the account.
+
+
+
+
+
+
+
+
+It is convenient to change slightly the notations  by  replacing indexes $(i_1, i_2)$ with $(i, j)$.
+
+Then the expression for the system composition becomes
+\begin{equation} \label{x14}
+x_1 = \sum_{i, j} \frac{i + j}{k} W_{i j} b_1^i b_2^j b
+\end{equation}
+
+This equation has to be combined with the normalization condition
+\begin{equation} \label{p4}
+1 = \sum_{i, j}  W_{i j} b_1^i b_2^j b
+\end{equation}
+allowing to get rid of $b$.
+
+The resulting expression for $x_1$ will look simpler if we define a few more combinations:
+\begin{equation} \label{S}
+\begin{split}
+S_j &= \sum_i W_{i j} b_1^i\\
+S_j^a &= \sum_i i W_{i j} b_1^i
+\end{split}
+\end{equation}
+
+%The resulting expression for $x_1$ will look simpler if we use a few more abbreviations:
+%\begin{eqnarray} \label{SSS}
+%S_j &= \sum\limits_i W_{i j} b_1^i\\
+%S_j^a &= \sum\limits_i i W_{i j} b_1^i
+%\end{eqnarray}
+
+Finally
+
+\begin{equation} \label{x14}
+x_1 = \frac{1}{4} \frac{S_0^a + (S_1 + S_1^a) b_2}{S_0 + S_1 b_2}
+\end{equation}
+
+Expressing  $b_2$ from this equation we will have solution where $b_1$ defines distribution of components between sublattices while $b_2$ ensures the correct total composition of the system.
+The equation (\ref{dFdy}) (with all components expressed as functions of $b_1$) defines the values of $y_1^{(m)}$ that bring the extreme values to the free energy.
+
+
+\begin{figure}[ht]
+\includegraphics[scale=0.6]{Ordering.pdf}
+\centering 
+\caption{Free energy of alloy near the critical point as function of concentration of atoms $a$ in the first sublattice.\\
+$x_1 = 0.25; \quad \gamma = 4.88$
+}
+\label{fig:Ordering}
+\end{figure}
+
+We could solve numerically this remaining equation but it is more instructive to look on the plot of the dependency of the free energy of the system on the concentration of atoms $a$ in the first sublattice. 
+Drawing this plot is an easy task taking in the account the described above dependency of both values on $b_1$ as parameter (Fig. 1).
+
+
+We can see that at sufficiently low  temperatures the dependency of the free energy on the distribution of atoms between the sub-lattices has two local minimums: one, which corresponds to the uniform distribution of atoms on all sub-lattices (near $y_1^{(1)} = 0.25$), and the other,  which demonstrates a significant difference in the concentration of atoms between two sublattices.
+
+The temperature is the main factor that defines which of these two minimums will win the competition, bringing the lowest value to the free energy.
+
+Interactive presentation of results of this section is available on GitHub using an 
+\href{https://github.com/EdKr2/TISR6/blob/master/notebooks/ordering_Cu3Au.ipynb}{Jupyter notebook}.
+
+
+\section{Conclusions}
+
+The main purpose of this article is to apply TISR  to describe the Order-Disorder Transformations in the crystalline solids.
+
+Presented is a relatively simple theory where the natural interaction between SRO and LRO exists on the basic level.
+
+Combination of  this version of TISR with the improved version of the combinatorial factor  \cite{TISR_p4}, results in a theory that may compete with the Cluster Variation Method  \cite{moran2012} in accuracy, but surpasses  it in simplicity and economy of the involved elements of description.
+
+It was shown that the developed version of TISR accurately reproduces the equations of CSA, but in a much simpler and more logically consistent form.
+
+
+Critical to a proper understanding and usage of the theory is the presented in \cite{TISR_p4} analysis of the combinatorial factor and its dependency on the structural parameter $\gamma$, which plays a significant role also in CSA (sometimes under other name).
+
+Rather than using $\gamma$ as a dummy adjustable parameter, as is done by multiple CSA  applications, TISR allows only one specific value for this parameter.
+This value can be deduced from the comparison with the results of the Monte-Carlo numerical experiments in
+order to reveal its correct physical value and therefore ensure the best possible quality of approximations.
+
+
+For better understanding of  formalism and multiple related details, an interactive presentation in the form of
+\href{https://github.com/EdKr2/TISR6/blob/master/notebooks/ordering_Cu3Au.ipynb}{Jupyter notebook} on the GitHub can be recommended.
+
+\bibliographystyle{unsrtnat}
+\bibliography{E:/GIT/TISR/references}
+
+
+\end{document}
+
+Almost immediately the formalism of theory was drastically simplified and brought to contemporary form in \cite{Li1949}, but unfortunately the development of theory followed \cite{zhang_oates2001} the logic developed in cited above three articles, producing confusion and creating mystical elements, such as infamous "Fowler–Yang–Li transformation".
+
+
+The results of this generalization has to  be compared with other attempt to achieve the same purpose -- with Cluster Site Approximation (CSA) \cite{Oates1999, zhang_oates2001}, that also has to be considered as multiparticle generalization of Quasichemical Theory (QT).
+
+The named generalization of QT was introduced in \cite{Yang1945, Yang1947, li1949quasi}
+
+
+
+
